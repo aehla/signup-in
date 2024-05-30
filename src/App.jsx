@@ -1,24 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginPage from "./Pages/Login"
-import SignupPage from "./Pages/Signup"
+import routes from "./Routes";
+import { Suspense } from "react";
 
-
-const router = createBrowserRouter([
-  {
-    path: "/" ,
-  element: <LoginPage/>
-},
-{
-  path: "/signup" ,
-element: <SignupPage/>
-}
-]);
+const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <>
-      <RouterProvider router={router}/>
-    </>
+    <Suspense fallback={"Loading..."}>
+      <RouterProvider router={router} />
+    </Suspense>
   )
 }
 
