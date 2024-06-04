@@ -5,7 +5,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import supabase from '../Services/Supabase'; // Assuming you have supabase imported properly
+import supabase from '../Services/Supabase';
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -17,10 +17,17 @@ export default function LoginPage() {
     const navigate = useNavigate();
 
     const validate = () => {
-        // Add your validation logic here
+        if (email.trim() === "" || password.trim() === "") {
+            setIsError(true);
+            setErrorMessage("All fields required");
+            return false;
+        }
+        return true;
     }
 
     const login = async () => {
+        if (!validate()) return;
+
         let { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password
@@ -63,7 +70,8 @@ export default function LoginPage() {
                             variant="outlined"
                             onChange={(e) => setEmail(e.target.value)}
                             error={isError}
-                            helperText={isError ? "Invalid Email" : ""}
+                            helperText={isError ? "All fields required" : ""}
+                            required
                         />
                     </Box>
                     <Box sx={{ p: 1 }}>
@@ -74,7 +82,8 @@ export default function LoginPage() {
                             type={showPassword ? "text" : "password"}
                             onChange={(e) => setPassword(e.target.value)}
                             error={isError}
-                            helperText={isError ? "Invalid Password" : ""}
+                            helperText={isError ? "All fields required" : ""}
+                            required
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -97,6 +106,9 @@ export default function LoginPage() {
                             Login
                         </Button>
                     </Box>
+                    <Typography align="right">
+                        <Link to="/forgot-password" style={{ textDecoration: 'none', color: 'black', fontSize: 15 }}>Forgot Password?</Link>
+                    </Typography>
                     <Typography align="center">or</Typography>
                     <Box sx={{ p: 1 }}>
                         <Button

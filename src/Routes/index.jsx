@@ -3,6 +3,8 @@ import SignUp from "../Pages/Signup";
 import Dashboard from "../Pages/Dashboard";
 import Main from "../Pages/Main";
 import Users from "../Pages/Users";
+import ConfirmationPage from "../Pages/Confirm";
+import ForgotPasswordPage from "../Pages/ForgotPass";
 
 const routes = [
     {
@@ -34,6 +36,14 @@ const routes = [
                 element: <div>Settings</div>
             }
         ]
+    },
+    {
+        path: "confirm",
+        element: <ConfirmationPage/>
+    },
+    {
+        path: "forgot-password",
+        element: <ForgotPasswordPage/>
     }
 ];
 
